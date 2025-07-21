@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-//import Select from 'react-select'
+import Select from 'react-select'
 
 
 
@@ -17,29 +17,27 @@ function App() {
 const [movies, setMoviesList] = useState(movies_list)
 const [search, setSearch] = useState ('')
 const [selectedOption, setSelectedOption] = useState('');
+const title = movies_list.map( movies => movies.title)
+const genre = movies_list.map( movies => movies.genre) 
+console.log(title);
+console.log(genre);
 
-const movie_title = movies_list.map( movies_list => movies_list.title)
-const movie_genre = movies_list.map( movies_list => movies_list.genre)
-console.log(movie_title);
-console.log(movie_genre);
+
+
+
 
 const options = {
-  value: [movie_genre], 
-  label: [movie_genre],
+  value: {genre}, 
+  label: {genre},
 }
 
 const handleChange = (selectedOption) => {
   if (selectedOption) {
     setSelectedOption(selectedOption);
   } else {
-    setSelectedOption('')
+    setSelectedOption(null)
   }
 }
-
-useEffect(() => {
-  console.log("Searched for a film:" + search);
-  
-}, [search]) 
 
 
   return (
@@ -49,11 +47,13 @@ useEffect(() => {
       <h1>Search a Movie</h1>
       <div className="card p-3">
         <div className="d-flex align-items-center m-2">
-          <select name="" id="" 
+          <select 
           options={options}
           value={selectedOption}
           onChange={handleChange}
-          >Seleziona un Genere</select>
+          />
+            <p>Genere Selezionato: {selectedOption ? selectedOption.value: "Nessun Genere Selezionato"}</p>
+          
         </div>
       </div>
       <ul className='list-group m-3'>
