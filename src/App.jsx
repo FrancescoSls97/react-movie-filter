@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+//import Select from 'react-select'
 
 
 
@@ -15,10 +16,25 @@ function App() {
 
 const [movies, setMoviesList] = useState(movies_list)
 const [search, setSearch] = useState ('')
+const [selectedOption, setSelectedOption] = useState('');
+
 const movie_title = movies_list.map( movies_list => movies_list.title)
 const movie_genre = movies_list.map( movies_list => movies_list.genre)
-console.log(movie_title, movie_genre);
+console.log(movie_title);
+console.log(movie_genre);
 
+const options = {
+  value: [movie_genre], 
+  label: [movie_genre],
+}
+
+const handleChange = (selectedOption) => {
+  if (selectedOption) {
+    setSelectedOption(selectedOption);
+  } else {
+    setSelectedOption('')
+  }
+}
 
 useEffect(() => {
   console.log("Searched for a film:" + search);
@@ -33,10 +49,11 @@ useEffect(() => {
       <h1>Search a Movie</h1>
       <div className="card p-3">
         <div className="d-flex align-items-center m-2">
-
-        <input className="form-control m-3 p-3" type="text" placeholder="Search movie..." value={search}onChange={(e) => setSearch(e.target.value)}></input>
-        <button className="btn btn-primary">Search</button>
-
+          <select name="" id="" 
+          options={options}
+          value={selectedOption}
+          onChange={handleChange}
+          >Seleziona un Genere</select>
         </div>
       </div>
       <ul className='list-group m-3'>
